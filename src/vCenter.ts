@@ -15,6 +15,7 @@ import {
   ClustersFilter,
   FoldersFilter,
   Folders,
+  VM,
 } from './types';
 
 const filterGenerator = (filter: any) =>
@@ -38,25 +39,28 @@ export class vCenter {
     });
   }
 
-  vCenterRequest = async <T>(path: string, filter: any): Promise<T> => {
+  private vCenterRequest = async <T>(path: string, filter?: any): Promise<T> => {
     const {
       body: { value },
     } = await this.http.get<T>(`${path}${filter ? `?${filterGenerator(filter)}` : ''}`);
     return value;
   };
 
-  getVMs = async (filter?: VMsFilter): Promise<VMs[]> => this.vCenterRequest('/vcenter/vm', filter);
+  public getVMs = async (filter?: VMsFilter): Promise<VMs[]> => this.vCenterRequest('/vcenter/vm', filter);
 
-  getHosts = async (filter?: HostsFilter): Promise<Hosts[]> => this.vCenterRequest('/vcenter/host', filter);
+  public getVM = async (id: string): Promise<VM> => this.vCenterRequest(`/vcenter/vm/${id}`);
 
-  getDataStores = async (filter?: DatastoresFilter): Promise<Datastores[]> => this.vCenterRequest('/vcenter/datastore', filter);
+  public getHosts = async (filter?: HostsFilter): Promise<Hosts[]> => this.vCenterRequest('/vcenter/host', filter);
 
-  getDataCenters = async (filter?: DatacentersFitler): Promise<Datacenters[]> =>
+  public getDataStores = async (filter?: DatastoresFilter): Promise<Datastores[]> =>
+    this.vCenterRequest('/vcenter/datastore', filter);
+
+  public getDataCenters = async (filter?: DatacentersFitler): Promise<Datacenters[]> =>
     this.vCenterRequest('/vcenter/datacenter', filter);
 
-  getClusters = async (filter?: ClustersFilter): Promise<Clusters[]> => this.vCenterRequest('/vcenter/cluster', filter);
+  public getClusters = async (filter?: ClustersFilter): Promise<Clusters[]> => this.vCenterRequest('/vcenter/cluster', filter);
 
-  getFolders = async (filter?: FoldersFilter): Promise<Folders[]> => this.vCenterRequest('/vcenter/folder', filter);
+  public getFolders = async (filter?: FoldersFilter): Promise<Folders[]> => this.vCenterRequest('/vcenter/folder', filter);
 }
 
 export async function loginVCSA(params: loginVCSAParams): Promise<string> {
