@@ -1,0 +1,31 @@
+{
+  "name": "ts-vcenter",
+  "version": "0.1.0",
+  "description": "vCenter API Module written in TypeScript",
+  "main": "lib/index.js",
+  "files": [
+    "lib/**/*"
+  ],
+  "scripts": {
+    "test": "jest",
+    "build": "tsc"
+  },
+  "keywords": [
+    "vCenter",
+    "vCSA",
+    "VMWare",
+    "got"
+  ],
+  "author": "Kristian Jones <me@kristianjones.xyz>",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^12.0.8",
+    "@types/tough-cookie": "^2.3.5",
+    "js-base64": "^2.5.1",
+    "typescript": "^3.5.1"
+  },
+  "dependencies": {
+    "got": "^9.6.0",
+    "typed-rest-client": "^1.5.0"
+  }
+}
