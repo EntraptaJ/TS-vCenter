@@ -16,6 +16,7 @@ import {
   FoldersFilter,
   Folders,
   VM,
+  VMPower,
 } from './types';
 
 const filterGenerator = (filter: any) =>
@@ -39,28 +40,44 @@ export class vCenter {
     });
   }
 
-  private vCenterRequest = async <T>(path: string, filter?: any): Promise<T> => {
+  private vCenterGetRequest = async <T>(path: string, filter?: any): Promise<T> => {
     const {
       body: { value },
     } = await this.http.get<T>(`${path}${filter ? `?${filterGenerator(filter)}` : ''}`);
     return value;
   };
 
-  public getVMs = async (filter?: VMsFilter): Promise<VMs[]> => this.vCenterRequest('/vcenter/vm', filter);
+  private vCenterPostRequest = async <T>(path: string, filter?: any): Promise<T> => {
+    const {
+      body: { value },
+    } = await this.http.post<T>(`${path}${filter ? `?${filterGenerator(filter)}` : ''}`);
+    return value;
+  };
 
-  public getVM = async (id: string): Promise<VM> => this.vCenterRequest(`/vcenter/vm/${id}`);
+  public getVMs = async (filter?: VMsFilter): Promise<VMs[]> => this.vCenterGetRequest('/vcenter/vm', filter);
 
-  public getHosts = async (filter?: HostsFilter): Promise<Hosts[]> => this.vCenterRequest('/vcenter/host', filter);
+  public powerGuestVM = async (vm: string, state: 'reboot' | 'shutdown') =>
+    this.vCenterPostRequest(`/vcenter/vm/${vm}/guest/power?action=${state}`);
+
+  public powerVM = async (vm: string, state: 'start' | 'reset' | 'stop' | 'suspend') =>
+    this.vCenterPostRequest(`/vcenter/vm/${vm}/power/${state}`);
+
+  public getVMPower = async (vm: string): Promise<VMPower> => this.vCenterGetRequest(`/vcenter/vm/${vm}/power`);
+
+  public getVM = async (id: string): Promise<VM> => this.vCenterGetRequest(`/vcenter/vm/${id}`);
+
+  public getHosts = async (filter?: HostsFilter): Promise<Hosts[]> => this.vCenterGetRequest('/vcenter/host', filter);
 
   public getDataStores = async (filter?: DatastoresFilter): Promise<Datastores[]> =>
-    this.vCenterRequest('/vcenter/datastore', filter);
+    this.vCenterGetRequest('/vcenter/datastore', filter);
 
   public getDataCenters = async (filter?: DatacentersFitler): Promise<Datacenters[]> =>
-    this.vCenterRequest('/vcenter/datacenter', filter);
+    this.vCenterGetRequest('/vcenter/datacenter', filter);
 
-  public getClusters = async (filter?: ClustersFilter): Promise<Clusters[]> => this.vCenterRequest('/vcenter/cluster', filter);
+  public getClusters = async (filter?: ClustersFilter): Promise<Clusters[]> =>
+    this.vCenterGetRequest('/vcenter/cluster', filter);
 
-  public getFolders = async (filter?: FoldersFilter): Promise<Folders[]> => this.vCenterRequest('/vcenter/folder', filter);
+  public getFolders = async (filter?: FoldersFilter): Promise<Folders[]> => this.vCenterGetRequest('/vcenter/folder', filter);
 }
 
 export async function loginVCSA(params: loginVCSAParams): Promise<string> {

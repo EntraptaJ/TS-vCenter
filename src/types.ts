@@ -139,6 +139,11 @@ export interface VM {
   };
 }
 
+export interface VMPower {
+  clean_power_off: boolean;
+  state: PowerState;
+}
+
 type HostConnection = 'CONNECTED' | 'DISCONNECTED' | 'NOT_RESPONDING';
 export interface Hosts {
   host: string;
