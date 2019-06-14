@@ -11,6 +11,10 @@
     "docs": "typedoc --out docs src",
     "test": "jest"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KristianFJones/TS-vCenter.git"
+  },
   "keywords": [
     "vCenter",
     "vCSA",
