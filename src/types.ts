@@ -176,6 +176,15 @@ export interface DatastoresFilter {
   datastores?: string | string[];
 }
 
+export interface DataStore {
+  multiple_host_access: boolean;
+  type: DataStoreType;
+  thin_provisioning_supported: boolean;
+  accessible: boolean;
+  name: string;
+  free_space: number;
+}
+
 export interface Datacenters {
   name: string;
   datacenter: string;
@@ -209,7 +218,9 @@ export interface Folders {
 }
 
 export interface FoldersFilter {
+  folders?: string | string[];
   names?: string | string[];
   type?: FolderType;
-  folders?: string | string[];
+  parent_folders?: string | string[];
+  datacenters?: string | string[];
 }
