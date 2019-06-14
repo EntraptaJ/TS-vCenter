@@ -79,7 +79,7 @@ export interface VMSCSI {
   key: string;
 }
 
-export type VMNetworkBacking = 'STANDARD_PORTGROUP' | 'HOST_DEVICE' | 'DISTRIBUTED_PORTGROUP' | 'OPAQUE_NETWORK';
+export type NetworkType = 'STANDARD_PORTGROUP' | 'HOST_DEVICE' | 'DISTRIBUTED_PORTGROUP' | 'OPAQUE_NETWORK';
 
 export type NICType = 'E1000' | 'E1000E' | 'PCNET32' | 'VMXNET' | 'VMXNET2' | 'VMXNET3';
 
@@ -91,7 +91,7 @@ export interface VMNIC {
       connection_cookie: number;
       distributed_switch_uuid: string;
       distributed_port: string;
-      type: VMNetworkBacking;
+      type: NetworkType;
       network: string;
     };
     mac_address: string;
@@ -223,4 +223,18 @@ export interface FoldersFilter {
   type?: FolderType;
   parent_folders?: string | string[];
   datacenters?: string | string[];
+}
+
+export interface Networks {
+  network: string;
+  type: NetworkType;
+  name: string;
+}
+
+export interface NetworksFilter {
+  datacenters?: string | string[];
+  folders?: string | string[];
+  types?: NetworkType | NetworkType[];
+  names?: string | string[];
+  networks?: string | string[];
 }

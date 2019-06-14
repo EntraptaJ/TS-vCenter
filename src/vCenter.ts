@@ -18,6 +18,8 @@ import {
   VM,
   VMPower,
   DataStore,
+  Networks,
+  NetworksFilter,
 } from './types';
 
 /**
@@ -169,6 +171,9 @@ export class vCenter {
    * Returns an array of all folders in vCenter matching the filter
    */
   public getFolders = async (filter?: FoldersFilter): Promise<Folders[]> => this.vCenterGetRequest('/vcenter/folder', filter);
+
+  public getNetworks = async (filter?: NetworksFilter): Promise<Networks[]> =>
+    this.vCenterGetRequest('/vcenter/network', filter);
 }
 
 /**
