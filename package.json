@@ -10,7 +10,8 @@
   "scripts": {
     "build": "tsc",
     "docs": "typedoc --out docs src",
-    "test": "jest"
+    "test": "jest",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
