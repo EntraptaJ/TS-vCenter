@@ -291,3 +291,95 @@ export interface ContentLibrarys {
   info: ContentLibary;
   items: ContentLibraryItem[];
 }
+
+export interface VMTemplateMemory {
+  size_MiB: number;
+}
+
+export interface VMTemplateCPU {
+  count: number;
+  cores_per_socket: number;
+}
+
+export interface VMTemplateHomeStorage {
+  datastore: string;
+  storage_policy?: string;
+}
+
+export interface VMTemplateDisk {
+  value: {
+    disk_storage: {
+      datastore: string;
+    };
+    capacity?: number;
+  };
+  key: string;
+}
+
+export interface VMTemplateNIC {
+  value: {
+    mac_type: string;
+    backing_type: NetworkType;
+    network: string;
+  };
+  key: string;
+}
+
+export interface VMTemplate {
+  memory: VMTemplateMemory;
+  disks: VMTemplateDisk[];
+  nics: VMTemplateNIC[];
+  cpu: VMTemplateCPU;
+  vm_home_storage: VMTemplateHomeStorage;
+  guest_OS: string;
+  vm_template: string;
+}
+
+/**
+ * Added in vCenter 6.7 U1
+ */
+export interface DeployVMTemplateGuestCustomization {
+  name: string;
+}
+
+export interface DeployVMTemplateHomeStorage {
+  datastore?: string;
+  storage_policy?: {
+    policy: string;
+    type: string;
+  };
+}
+
+export interface DeployVMTemplatePlacement {
+  folder: string;
+  resource_pool?: string;
+  host?: string;
+  cluster?: string;
+}
+
+export interface DeployVMTemplateDiskStorage {
+  datastore: string;
+}
+
+export interface DeployVMTemplateHardwareCustomization {
+  cpu_update?: {
+    num_cpus?: number;
+    num_cores_per_socket?: number;
+  };
+  nics?: {
+    key: string;
+    value: {
+      network: string;
+    };
+  }[];
+}
+
+export interface DeployVMParams {
+  name: string;
+  disk_storage?: DeployVMTemplateDiskStorage;
+  description?: string;
+  powered_on?: boolean;
+  placement: DeployVMTemplatePlacement;
+  hardware_customization?: DeployVMTemplateHardwareCustomization;
+  vm_home_storage?: DeployVMTemplateHomeStorage;
+}

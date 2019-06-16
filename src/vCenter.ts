@@ -23,6 +23,8 @@ import {
   ContentLibary,
   ContentLibraryItem,
   ContentLibrarys,
+  VMTemplate,
+  DeployVMParams,
 } from './types';
 
 /**
@@ -207,15 +209,29 @@ export class vCenter {
   /**
    * Return an array of all Librarys, Info, and Items. Combo of {@link getContentLibaryID} {@link getContentLibrary}
    */
-  public getContentLibrarys = async () => {
+  public getContentLibrarys = async (): Promise<ContentLibrarys[]> => {
     const Librarys = await this.getContentLibaryID();
     return Promise.all(
       Librarys.map(async ID => {
         const [info, ItemIDs] = await Promise.all([this.getContentLibrary(ID), this.getContentLibaryItemIDs(ID)]);
-        return { info, items: await Promise.all(ItemIDs.map(itemID => this.getContentLibraryItem(itemID))) };
+        return { info, items: await Promise.all(ItemIDs.map(itemID => this.getContentLibraryItem(itemID))) } as ContentLibrarys;
       }),
     );
   };
+
+  /**
+   * Returns VM Template information for content library Item
+   * @param id The VM Template content library item
+   */
+  public getVMTemplate = async (id: string): Promise<VMTemplate> =>
+    this.vCenterGetRequest(`/vcenter/vm-template/library-items/${id}`);
+
+  /**
+   * Deploys a VM Template Content Library Item
+   * @param id VM Template Content Library Item
+   */
+  public depoyVMTemplate = async (id: string, VM: DeployVMParams): Promise<string> =>
+    this.vCenterPostRequest(`/vcenter/vm-template/library-items/${id}?action=deploy`, { spec: VM });
 }
 
 /**
