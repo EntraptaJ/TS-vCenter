@@ -238,3 +238,56 @@ export interface NetworksFilter {
   names?: string | string[];
   networks?: string | string[];
 }
+
+export type ContentLibaryStorageBackingType = 'DATASTORE' | 'OTHER';
+
+export interface ContentLibraryStorageBackings {
+  datastore_id?: string;
+  type?: ContentLibaryStorageBackingType;
+  storage_uri?: string;
+}
+
+export type ContentLibraryPublishAuth = 'BASIC' | 'NON';
+
+export interface ContentLibraryPublishInfo {
+  authentication_method: ContentLibraryPublishAuth;
+  user_name: string;
+  published: boolean;
+  publish_url: string;
+  persist_json_enabled: boolean;
+}
+
+export type ContentLibaryType = 'LOCAL' | 'SUBSCRIBED';
+
+export interface ContentLibary {
+  creation_time: string;
+  storage_backings: ContentLibaryStorageBackingType[];
+  last_modified_time: string;
+  server_guid: string;
+  description: string;
+  type: ContentLibaryType;
+  version: number;
+  name: string;
+  publish_info: ContentLibraryPublishInfo;
+  id: string;
+}
+
+export interface ContentLibraryItem {
+  creation_time: string;
+  last_modified_time: string;
+  description: string;
+  type: string;
+  version: string;
+  content_version: string;
+  library_id: string;
+  size: number;
+  cached: boolean;
+  name: string;
+  id: string;
+  metadata_version: string;
+}
+
+export interface ContentLibrarys {
+  info: ContentLibary;
+  items: ContentLibraryItem[];
+}

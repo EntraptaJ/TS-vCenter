@@ -20,6 +20,9 @@ import {
   DataStore,
   Networks,
   NetworksFilter,
+  ContentLibary,
+  ContentLibraryItem,
+  ContentLibrarys,
 } from './types';
 
 /**
@@ -172,8 +175,47 @@ export class vCenter {
    */
   public getFolders = async (filter?: FoldersFilter): Promise<Folders[]> => this.vCenterGetRequest('/vcenter/folder', filter);
 
+  /**
+   * Returns array of all networks in vCenter
+   */
   public getNetworks = async (filter?: NetworksFilter): Promise<Networks[]> =>
     this.vCenterGetRequest('/vcenter/network', filter);
+
+  /**
+   * Get all Content Libraries
+   */
+  public getContentLibaryID = async (): Promise<string[]> => this.vCenterGetRequest('/com/vmware/content/library');
+
+  /**
+   * Get Content Library Information
+   */
+  public getContentLibrary = async (ID: string): Promise<ContentLibary> =>
+    this.vCenterGetRequest(`/com/vmware/content/library/id:${ID}`);
+
+  /**
+   * Get Item IDs in Content Library
+   */
+  public getContentLibaryItemIDs = async (ID: string): Promise<string[]> =>
+    this.vCenterGetRequest(`/com/vmware/content/library/item?library_id=${ID}`);
+
+  /**
+   * Get Content Library Item Information
+   */
+  public getContentLibraryItem = async (ID: string): Promise<ContentLibraryItem> =>
+    this.vCenterGetRequest(`/com/vmware/content/library/item/id:${ID}`);
+
+  /**
+   * Return an array of all Librarys, Info, and Items. Combo of {@link getContentLibaryID} {@link getContentLibrary}
+   */
+  public getContentLibrarys = async () => {
+    const Librarys = await this.getContentLibaryID();
+    return Promise.all(
+      Librarys.map(async ID => {
+        const [info, ItemIDs] = await Promise.all([this.getContentLibrary(ID), this.getContentLibaryItemIDs(ID)]);
+        return { info, items: await Promise.all(ItemIDs.map(itemID => this.getContentLibraryItem(itemID))) };
+      }),
+    );
+  };
 }
 
 /**
