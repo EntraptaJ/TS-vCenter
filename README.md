@@ -6,17 +6,22 @@ typedoc site coming soon. But for now jsdoc/tsdoc should have everything needed.
 
 ## Working
 
-Combo method of Content Library, Items, and Info
-VM Templates - List, Deployment
-VMs
-Hosts
-Datastores
-Most Content Library Stuff
-Folders
-Datacenters
-Clusters
+- Combo method of Content Library, Items, and Info
+- VM Templates - List, Deployment
+- VMs
+- Hosts
+- Datastores
+- Most Content Library Stuff
+- Folders
+- Datacenters
+- Clusters
 
-If you need any more methods added just open an issue on the GitHub repo and I'll have it added within a day. Or open a PR if you would like. All requests are done with the internal this.vCenterGetRequest or this.vCenterPostRequest methods in the vCenter class
+## Extras
+
+If you need any more methods added just open an issue on the GitHub repo and I'll have it added within a day. Or open a PR if you would like.
+
+All requests are done with the internal this.vCenterGetRequest or this.vCenterPostRequest methods in the vCenter class
+
 Example
 
 ```typescript
