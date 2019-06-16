@@ -1,0 +1,19 @@
+{
+  "exclude": ["node_modules", "lib/*", "local/*"],
+  "compilerOptions": {
+    "target": "es2018",
+    "module": "commonjs",
+    "lib": ["es2018", "esnext", "esnext.asynciterable"],
+    "moduleResolution": "node",
+    "outDir": "./lib",
+    "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "allowJs": false,
+    "baseUrl": "./src",
+    "resolveJsonModule": true,
+    "typeRoots": ["node_modules/@types", "@types"]
+  },
+  "include": ["./src/**/*", "./src/**/*.json"]
+}
