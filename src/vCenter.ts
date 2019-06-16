@@ -29,6 +29,7 @@ import {
 
 /**
  * Generates a URL String filter from a provided object
+ * Passed in object values need to match the URL filter.name name.
  */
 const filterGenerator = (filter: any) =>
   Object.entries(filter)

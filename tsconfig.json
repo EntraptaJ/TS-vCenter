@@ -7,7 +7,9 @@
     "baseUrl": "./src",
     "typeRoots": ["@types"],
     "esModuleInterop": true,
-    "declaration": true
+    "declaration": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "exclude": ["node_modules", "**/__tests__/*", "lib"]
 }

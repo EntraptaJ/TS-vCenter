@@ -1,12 +1,12 @@
 export interface loginVCSAParams {
-  url: string | URL;
+  url: string;
   username: string;
   password: string;
 }
 
 export interface Session {
   token: string;
-  url: string | URL;
+  url: string;
 }
 
 type PowerState = 'POWERED_ON' | 'POWERED_OFF';
