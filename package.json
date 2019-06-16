@@ -1,6 +1,6 @@
 {
   "name": "ts-vcenter",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "homepage": "https://kristianjones.dev/TSModules",
   "description": "vCenter API Module written in TypeScript",
   "main": "lib/index.js",
