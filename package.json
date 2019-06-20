@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "docs": "typedoc --out docs src",
+    "doc": "typedoc --out docs src",
     "test": "jest",
     "postversion": "git push --follow-tags",
     "prepublishOnly": "npm run build"
