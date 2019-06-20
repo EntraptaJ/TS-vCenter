@@ -135,3 +135,5 @@ typings/
 src/testing.ts
 lib
 docs
+examples/*/*auth.ts
+examples/Type-GraphQL/src/auth.ts
