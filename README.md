@@ -2,7 +2,7 @@
 
 TS-vCenter is a NodeJS module for interacting with a vCenter Server via the Automation REST API
 
-typedoc site coming soon. But for now jsdoc/tsdoc should have everything needed. Everything is fully typed.
+TypeDoc [Documentation](https://kristianfjones.github.io/TS-vCenter/docs/classes/_vcenter_.vcenter.html)
 
 ## Working
 
