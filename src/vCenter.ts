@@ -90,7 +90,7 @@ export class vCenter {
 
   /**
    * Returns an array of all VMs matching the filter, all if no filter is provided
-   * @remarks
+   * ### Example
    * ```typescript
    * const VMs = await getVMs()
    * VMs.map((vm) => console.log(vm.name))
@@ -100,7 +100,7 @@ export class vCenter {
 
   /**
    * Performs guest based power actions on a VM.
-   * @remarks
+   * ### Example
    * ```typescript
    * await vcsa.powerGuestVM('vm-16', 'shutdown')
    * ```
@@ -110,7 +110,7 @@ export class vCenter {
 
   /**
    * Performs power actions on a VM.
-   * @remarks
+   * ### Example
    * ```typescript
    * await vcsa.powerVM('vm-16', 'start')
    * ```
@@ -120,7 +120,7 @@ export class vCenter {
 
   /**
    * Returns VM power information.
-   * @remarks
+   * ### Example
    * ```typescript
    * const { state, clean_power_off } = await vcsa.getVMPower('vm-16');
    * ```
@@ -129,7 +129,7 @@ export class vCenter {
 
   /**
    * Returns VM information for a single VM.
-   * @remarks
+   * ### Example
    * ```typescript
    * const { name, nics } = await vcsa.getVM('vm-16');
    * ```
@@ -138,7 +138,7 @@ export class vCenter {
 
   /**
    * Returns an array all Hosts on the vCenter
-   * @remarks
+   * ### Example
    * ```typescript
    * const Hosts = await vcsa.getHosts()
    * Hosts.map((host) => console.log(host.name, host.connection_state, host.power_state))
@@ -154,7 +154,7 @@ export class vCenter {
 
   /**
    * Returns object of a single vCeneter datastore
-   * @remarks
+   * ### Example
    * ```typescript
    * const { thin_provisioning_supported, name, free_space } = await vcsa.getDataStore('datastore-1015');
    * ```
@@ -180,6 +180,10 @@ export class vCenter {
 
   /**
    * Returns array of all networks in vCenter
+   * ### Example
+   * ```typescript
+   * const Networks = await vcsa.getNetworks();
+   * ```
    */
   public getNetworks = async (filter?: NetworksFilter): Promise<Networks[]> =>
     this.vCenterGetRequest('/vcenter/network', filter);
@@ -209,6 +213,11 @@ export class vCenter {
 
   /**
    * Return an array of all Librarys, Info, and Items. Combo of {@link getContentLibaryID} {@link getContentLibrary}
+   * ### Example
+   * ```typescript
+   * const Libraries = await vcsa.getContentLibrarys();
+   * Libraries.map(Lib => Lib.items.map(itm => console.log(itm.name)));
+   * ```
    */
   public getContentLibrarys = async (): Promise<ContentLibrarys[]> => {
     const Librarys = await this.getContentLibaryID();
@@ -230,6 +239,33 @@ export class vCenter {
   /**
    * Deploys a VM Template Content Library Item
    * @param id VM Template Content Library Item
+   *
+   * ### Example
+   * ```typescript
+   *  const [Libraries] = await Promise.all([vcsa.getContentLibrarys()]);
+   *  const Ubuntu = Libraries.find(({ items }) => items.find(({ name }) => name === 'Ubuntu')).items.find(
+   *    ({ name }) => name === 'Ubuntu',
+   *  );
+   *  const [[{ host }], Datastores, Folders, Networks, UbuntuTemplate] = await Promise.all([
+   *    vcsa.getHosts(),
+   *    vcsa.getDataStores(),
+   *    vcsa.getFolders(),
+   *    vcsa.getNetworks(),
+   *    vcsa.getVMTemplate(Ubuntu.id),
+   * ]);
+   * const Folder = Folders.find(({ type }) => type === 'VIRTUAL_MACHINE');
+   * const DS = Datastores.find(({ name }) => name === 'vmh1.vdsk1');
+   * const DMZNetwork = Networks.find(({ name }) => name === 'vswt1.DMZ');
+   * const VMID = await vcsa.depoyVMTemplate(Ubuntu.id, {
+   *  placement: { host: host, folder: Folder.folder },
+   *  name: 'TS-vCenter2',
+   *  disk_storage: { datastore: DS.datastore },
+   *  vm_home_storage: {
+   *    datastore: DS.datastore,
+   *  },
+   *  });
+   *    const VM = await vcsa.getVM(VMID);
+   * ```
    */
   public depoyVMTemplate = async (id: string, VM: DeployVMParams): Promise<string> =>
     this.vCenterPostRequest(`/vcenter/vm-template/library-items/${id}?action=deploy`, { spec: VM });
@@ -237,8 +273,7 @@ export class vCenter {
 
 /**
  * Logs into vCenter and gets session token
- * @remarks
- * Usage
+ * ### Example
  * ```ts
  * const token = await loginVCSA({
  *  username: 'admin',
