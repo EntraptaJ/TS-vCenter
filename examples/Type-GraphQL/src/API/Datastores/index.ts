@@ -1,8 +1,9 @@
-import { Resolver, Query, Field, InputType, Arg, UseMiddleware } from 'type-graphql';
-import { loginvCSA } from '../../auth';
+import { Resolver, Query, Field, InputType, Arg, UseMiddleware, Ctx } from 'type-graphql';
 import { Datastores } from 'ts-vcenter';
 import { DataStoresType } from './DataStoreType';
 import { FilterInterceptor } from '../Filter';
+import { Context } from '../Context';
+import { AuthInterceptor } from '../Auth';
 
 @InputType()
 class GetDataStoresArgs {
@@ -13,9 +14,11 @@ class GetDataStoresArgs {
 @Resolver()
 export default class DataStoreResolver {
   @Query(returns => [DataStoresType])
-  @UseMiddleware(FilterInterceptor)
-  public async DataStores(@Arg('filter', { nullable: true }) filter: GetDataStoresArgs): Promise<Datastores[]> {
-    const vcsa = await loginvCSA();
-    return vcsa.getDataStores();
+  @UseMiddleware(FilterInterceptor, AuthInterceptor)
+  public async DataStores(
+    @Arg('filter', { nullable: true }) filter: GetDataStoresArgs,
+    @Ctx() ctx: Context,
+  ): Promise<Datastores[]> {
+    return ctx.vcsa.getDataStores();
   }
 }
