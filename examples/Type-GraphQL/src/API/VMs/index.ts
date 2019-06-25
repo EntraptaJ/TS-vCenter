@@ -4,7 +4,6 @@ import { VMsType } from './VMType';
 import { FilterInterceptor } from '../Filter';
 import { Context } from '../Context';
 import { AuthInterceptor } from '../Auth';
-import { stat } from 'fs-extra';
 
 @InputType()
 class GetVMSArgs {
