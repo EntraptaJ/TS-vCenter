@@ -5,11 +5,11 @@
     "lib": ["esnext", "dom"],
     "outDir": "lib",
     "baseUrl": "./src",
-    "typeRoots": ["@types"],
     "esModuleInterop": true,
     "declaration": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "exclude": ["node_modules", "**/__tests__/*", "lib", "examples", "src/testing.ts"]
+  "include": ["src"],
+  "exclude": ["node_modules", "**/__tests__/*", "lib", "examples", "testing.ts"]
 }
