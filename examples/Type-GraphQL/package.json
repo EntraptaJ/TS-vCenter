@@ -20,7 +20,7 @@
     "klaw": "^3.0.0",
     "p-event": "^4.1.0",
     "reflect-metadata": "^0.1.13",
-    "ts-vcenter": "^0.3.9",
+    "ts-vcenter": "^0.3.10",
     "type-graphql": "^0.17.4"
   },
   "devDependencies": {

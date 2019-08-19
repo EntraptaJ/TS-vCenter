@@ -383,3 +383,23 @@ export interface DeployVMParams {
   hardware_customization?: DeployVMTemplateHardwareCustomization;
   vm_home_storage?: DeployVMTemplateHomeStorage;
 }
+
+export interface GuestVMFullName {
+  args: string[];
+  default_message: string;
+  id: string;
+}
+
+export interface GuestVMInfo {
+  full_name: GuestVMFullName;
+  /**
+   * OS Name
+   */
+  name: string
+
+  ip_address: string;
+
+  family: string;
+
+  host_name: string;
+}

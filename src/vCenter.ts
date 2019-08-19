@@ -25,6 +25,7 @@ import {
   ContentLibrarys,
   VMTemplate,
   DeployVMParams,
+  GuestVMInfo,
 } from './types';
 
 /**
@@ -210,6 +211,11 @@ export class vCenter {
    */
   public getContentLibraryItem = async (ID: string): Promise<ContentLibraryItem> =>
     this.vCenterGetRequest(`/com/vmware/content/library/item/id:${ID}`);
+
+  /**
+   * Gets guest Information
+   */
+  public getGuestInfo = async (ID: string): Promise<GuestVMInfo> => this.vCenterGetRequest(`/vcenter/vm/${ID}/guest/identity`);
 
   /**
    * Return an array of all Librarys, Info, and Items. Combo of {@link getContentLibaryID} {@link getContentLibrary}
