@@ -1,0 +1,43 @@
+{
+  "name": "ts-vcenter",
+  "version": "0.3.11",
+  "homepage": "https://kristianjones.dev/TSModules",
+  "description": "vCenter API Module written in TypeScript",
+  "main": "lib/index.js",
+  "files": [
+    "lib/**/*"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "doc": "typedoc --out docs src",
+    "test": "jest --config jestconfig.json",
+    "postversion": "git push --follow-tags",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KristianFJones/TS-vCenter.git"
+  },
+  "keywords": [
+    "vCenter",
+    "vCSA",
+    "VMWare",
+    "got"
+  ],
+  "author": "Kristian Jones <me@kristianjones.xyz>",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^24.0.15",
+    "@types/node": "^12.0.8",
+    "@types/tough-cookie": "^2.3.5",
+    "jest": "^24.8.0",
+    "nock": "^11.0.0-beta.20",
+    "ts-jest": "^24.0.2",
+    "typedoc": "^0.14.2",
+    "typescript": "^3.5.1"
+  },
+  "dependencies": {
+    "got": "^9.6.0",
+    "js-base64": "^2.5.1"
+  }
+}
