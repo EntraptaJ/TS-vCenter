@@ -37,7 +37,7 @@
     "typescript": "^3.5.1"
   },
   "dependencies": {
-    "got": "^9.6.0",
+    "got": "^11.1.2",
     "js-base64": "^2.5.1"
   }
 }
