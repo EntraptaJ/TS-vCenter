@@ -21,7 +21,7 @@
     "p-event": "^4.1.0",
     "reflect-metadata": "^0.1.13",
     "ts-vcenter": "^0.3.10",
-    "type-graphql": "^0.17.4"
+    "type-graphql": "^0.17.6"
   },
   "devDependencies": {
     "@types/fs-extra": "^7.0.0",
