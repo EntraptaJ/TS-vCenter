@@ -10,7 +10,7 @@
   "author": "Kristian Jones <me@kristianjones.xyz>",
   "license": "ISC",
   "dependencies": {
-    "apollo-server": "^2.6.3",
+    "apollo-server": "^2.25.3",
     "apollo-server-express": "^2.6.4",
     "express": "^4.17.1",
     "express-jwt": "^5.3.1",
